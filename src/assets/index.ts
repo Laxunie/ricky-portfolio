@@ -1,0 +1,1 @@
+export {default as LogoTransparent} from './logo-transparent.png'
