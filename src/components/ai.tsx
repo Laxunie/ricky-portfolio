@@ -94,7 +94,7 @@ const AI = ({ darkMode }: { darkMode: boolean }) => {
                     )}
                 </span>
             <form className='relative w-full max-w-md'>
-                <input type="text" placeholder="Ask me anything..." value={question} onChange={(e) => handleQuestion(e)} className={`w-full p-2 border-1 border-gray-500 rounded-4xl ${darkMode ? ' text-white' : ' text-black'}`} />
+                <input type="text" placeholder="Ask me anything..." value={question} onChange={(e) => handleQuestion(e)} className={`w-full p-2 border-1 border-gray-500 rounded-4xl ${darkMode ? ' text-white placeholder-gray-400' : ' text-black placeholder-gray-500'}`} />
                 <button
                     className={`absolute right-2 top-1/2 transform -translate-y-1/2 ${darkMode ? 'bg-gray-700' : 'bg-gray-300'} px-2 py-2 rounded-full`}
                     onClick={(e) => handleSubmit(e)}
