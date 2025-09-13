@@ -6,3 +6,4 @@ export {default as SpotifyDisplay} from './spotifyDisplay';
 export {default as Footer} from './footer';
 export {default as TimeLine} from './timeLine';
 export {default as Projects} from './projects';
+export {default as AI} from './ai';

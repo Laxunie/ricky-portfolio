@@ -123,7 +123,7 @@ const Home = ({darkMode}: HomeProps) => {
         direction='up'
         triggerOnce={true}
       >
-        <h1 className='mt-4 text-md font-light max-sm:text-sm max-sm:text-center'>just another keyboard warrior from winnipeg trying to break into software engineering.</h1>
+        <h1 className='mt-4 text-md font-light max-sm:text-sm max-sm:text-center max-sm:m-4'>just another keyboard warrior from winnipeg trying to break into software engineering.</h1>
       </Fade>
       <SpotifyDisplay 
         nowPlaying={nowPlaying}

@@ -10,7 +10,7 @@ type NavbarProps = {
 };
 
 const Navbar = ({index, setIndex, darkMode, setDarkMode }: NavbarProps) => {
-  const links = ["Home", "About", "Contact"];
+  const links = ["AI", "Home", "About", "Contact"];
 
   const containerRef = useRef<HTMLDivElement>(null);
   const [highlightStyle, setHighlightStyle] = useState({ left: 0, width: 0 });

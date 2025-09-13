@@ -47,7 +47,7 @@ const SpotifyDisplay = ({
     <div className="my-4">
       <div className="flex flex-col">
         <div className="flex justify-between items-center">
-          <h2 className="text-lg font-semibold"> {nowPlaying ? "Now Playing" : "Recently Played"}</h2>
+          <h2 className="text-lg font-semibold max-sm:pl-8"> {nowPlaying ? "Now Playing" : "Recently Played"}</h2>
           <div
             className={`relative flex gap-4 text-sm font-light ${darkMode ? 'text-gray-300' : 'text-gray-600'} max-sm:hidden`}
             ref={containerRef}
@@ -75,13 +75,13 @@ const SpotifyDisplay = ({
         </div>
 
         {recentlyPlayed && recentlyPlayed.length > 0 && (
-          <div className="flex flex-row max-sm:flex-col gap-4 mt-4">
+          <div className="flex flex-row max-sm:flex-col max-sm:items-center gap-4 mt-4">
             {/* Big embed */}
             <div className="">
               <div
                 className={`${
                   darkMode ? "bg-gray-800" : "bg-gray-200"
-                } rounded-xl overflow-hidden h-[352px]`}
+                } rounded-xl overflow-hidden h-[352px] max-sm:h-[80px]`}
               >
                 <Fade direction="up" triggerOnce={true} delay={4000}>
                   <iframe
@@ -90,7 +90,7 @@ const SpotifyDisplay = ({
                         ? nowPlaying.id
                         : recentlyPlayed[0].id
                     }
-                    className="rounded-xl"
+                    className="rounded-xl max-sm:h-[80px]"
                     src={`https://open.spotify.com/embed/track/${
                       nowPlaying ? nowPlaying.id : recentlyPlayed[0].id
                     }`}
@@ -102,7 +102,7 @@ const SpotifyDisplay = ({
               </div>
             </div>
             <div
-              className={`flex gap-4 text-sm font-light ${darkMode ? 'text-gray-300' : 'text-gray-600'} sm:hidden`}
+              className={`flex gap-4 text-sm font-light max-sm:self-start max-sm:pl-5 ${darkMode ? 'text-gray-300' : 'text-gray-600'} sm:hidden`}
             >
               <a
                 className={`px-3 py-2 cursor-pointer hover:text-gray-900 z-10 ${index === 0 ? 'font-semibold' : ''}`}
