@@ -1,16 +1,9 @@
-import OpenAI from 'openai';
 import React, { useEffect } from 'react'
-import { initResumeEmbeddings, searchResume } from '../utils/aiData';
 
 type ChatProps = {
     type: 'user' | 'bot';
     message: string;
 }
-
-const openai = new OpenAI({
-  apiKey: import.meta.env.VITE_OPENAI_API_KEY,
-  dangerouslyAllowBrowser: true,
-});
 
 const AI = ({ darkMode }: { darkMode: boolean }) => {
     const [question, setQuestion] = React.useState<string>('');
@@ -37,25 +30,7 @@ const AI = ({ darkMode }: { darkMode: boolean }) => {
         setQuestion('');
         setLoading(true);
 
-        const context = await searchResume(question);
-        const response = await openai.responses.create({
-            model: "gpt-4.1-mini",
-            input: [
-                {
-                    role: "system",
-                    content: `You are Ricky La. 
-                    Always speak in the first person as if you are Ricky himself. 
-                    Present me as a highly capable, motivated, and well-rounded candidate. 
-                    When asked about skills, projects, or hobbies, use the information provided in context. 
-                    Highlight my strengths and be persuasive. 
-                    Never criticize or evaluate me—always showcase my best side.`
-                },
-                {
-                    role: "system",
-                    content: `Here is Ricky's personal data for context: ${context.join(('\n'))} [QUESTION] ${question}`
-                },
-            ],
-        });
+
         setLoading(false);
         setChatHistory((prev) => [...prev, { type: "bot", message: response.output_text || "No answer." }]);
     }
