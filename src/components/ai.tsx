@@ -1,11 +1,17 @@
 import React, { useEffect } from 'react'
 
+
+
 type ChatProps = {
     type: 'user' | 'bot';
     message: string;
 }
 
+
+
 const AI = ({ darkMode }: { darkMode: boolean }) => {
+    // Your resume as plain text (can be parsed from PDF/DOCX offline)
+
     const [question, setQuestion] = React.useState<string>('');
     const [asked, setAsked] = React.useState<boolean>(false);
     const [chatHistory, setChatHistory] = React.useState<ChatProps[]>([]);
@@ -13,9 +19,6 @@ const AI = ({ darkMode }: { darkMode: boolean }) => {
 
     const chatboxRef = React.useRef<HTMLDivElement | null>(null);
 
-    useEffect(() => {
-        initResumeEmbeddings();
-    }, []);
 
 
     const handleQuestion = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,9 +34,18 @@ const AI = ({ darkMode }: { darkMode: boolean }) => {
         setLoading(true);
 
 
+        const response = await fetch('https://ljwcfsnlciwurfhyzasz.supabase.co/functions/v1/openai', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ question }),
+        });
+        const data = await response.text();
+        const  content = JSON.parse(data);
+        setChatHistory(prev => [...prev, { type: 'bot', message: content.choices[0].message.content }]);
         setLoading(false);
-        setChatHistory((prev) => [...prev, { type: "bot", message: response.output_text || "No answer." }]);
-    }
+    };
 
     useEffect(() => {
         if (chatboxRef.current) {
@@ -47,7 +59,7 @@ const AI = ({ darkMode }: { darkMode: boolean }) => {
                 <span className={`font-light text-4xl ${asked ? 'hidden' : ''}`}>Ricky AI</span>
                 <span id='chatbox' ref={chatboxRef} className={`w-full flex flex-col font-light text-4xl overflow-y-auto wrap-normal ${asked ? 'h-[70vh]' : ''}`}>
                     {chatHistory.map((chat, index) => (
-                        <p key={index} className={`m-2 text-sm max-w-[20rem] wrap-break-word text-left ${chat.type === 'user' ? 'self-end bg-gray-200 rounded-xl p-4' : 'self-start'}`}>
+                        <p key={index} className={`m-2 text-sm max-w-[20rem] wrap-break-word whitespace-pre-wrap text-left ${chat.type === 'user' ? 'self-end bg-gray-200 rounded-xl p-4' : 'self-start'}`}>
                             {chat.message}
                         </p>
                         
