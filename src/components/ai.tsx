@@ -1,13 +1,11 @@
 import React, { useEffect } from 'react'
-
-
+import { FaArrowRightToBracket } from "react-icons/fa6";
+import Typewriter from 'typewriter-effect';
 
 type ChatProps = {
     type: 'user' | 'bot';
     message: string;
 }
-
-
 
 const AI = ({ darkMode }: { darkMode: boolean }) => {
     // Your resume as plain text (can be parsed from PDF/DOCX offline)
@@ -19,13 +17,12 @@ const AI = ({ darkMode }: { darkMode: boolean }) => {
 
     const chatboxRef = React.useRef<HTMLDivElement | null>(null);
 
-
-
     const handleQuestion = (e: React.ChangeEvent<HTMLInputElement>) => {
         setQuestion(e.currentTarget.value);
     }
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        e.preventDefault();
         if (!question.trim()) return;
         // Handle the submission of the question to the AI backend
         setChatHistory(prev => [...prev, { type: 'user', message: question }]);
@@ -59,26 +56,52 @@ const AI = ({ darkMode }: { darkMode: boolean }) => {
                 <span className={`font-light text-4xl ${asked ? 'hidden' : ''}`}>Ricky AI</span>
                 <span id='chatbox' ref={chatboxRef} className={`w-full flex flex-col font-light text-4xl overflow-y-auto wrap-normal ${asked ? 'h-[70vh]' : ''}`}>
                     {chatHistory.map((chat, index) => (
-                        <p key={index} className={`m-2 text-sm max-w-[20rem] wrap-break-word whitespace-pre-wrap text-left ${chat.type === 'user' ? 'self-end bg-gray-200 rounded-xl p-4' : 'self-start'}`}>
-                            {chat.message}
+                        <p key={index} className={`m-2 text-sm max-w-[20rem] wrap-break-word whitespace-pre-wrap text-left ${chat.type === 'user' ? `self-end ${darkMode ? 'bg-gray-700' : 'bg-gray-300'} rounded-xl px-3 py-2` : 'self-start'}`}>
+                            {chat.type === 'user' ? chat.message : (
+                            <Typewriter
+                                onInit={(typewriter) => {
+                                    typewriter.typeString(chat.message)
+                                    .callFunction(() => {
+                                        const cursors = document.querySelectorAll('.Typewriter__cursor');
+                                        cursors.forEach(cursor => {(cursor as HTMLElement).style.display = 'none'});
+                                    })
+                                    .stop()
+                                    .start();
+                                }}
+                                options={
+                                    {
+                                        delay: 100,
+                                    }
+                                }
+                            />)}
                         </p>
-                        
                     ))}
                     {loading && (
-                        <p className='m-2 text-sm max-w-[20rem] wrap-break-word text-left self-start bg-gray-200 rounded-xl p-4'>
-                            ...
+                        <p className='m-2 text-sm max-w-[20rem] wrap-break-word text-left self-start'>
+                            <Typewriter
+                                onInit={(typewriter) => {
+                                    typewriter.typeString("...")
+                                    .stop()
+                                    .start();
+                                }}
+                                options={{
+                                    autoStart: true,
+                                    loop: true,
+                                    delay: 300,
+                                }}
+                            />
                         </p>
                     )}
                 </span>
-            <div className='relative w-full max-w-md'>
+            <form className='relative w-full max-w-md'>
                 <input type="text" placeholder="Ask me anything..." value={question} onChange={(e) => handleQuestion(e)} className={`w-full p-2 border-1 border-gray-500 rounded-4xl ${darkMode ? ' text-white' : ' text-black'}`} />
                 <button
-                    className="absolute right-1 top-1/2 transform -translate-y-1/2 bg-gray-300 px-3 py-1 rounded-full"
-                    onClick={handleSubmit}
+                    className={`absolute right-2 top-1/2 transform -translate-y-1/2 ${darkMode ? 'bg-gray-700' : 'bg-gray-300'} px-2 py-2 rounded-full`}
+                    onClick={(e) => handleSubmit(e)}
                 >
-                    Go
+                    <FaArrowRightToBracket />
                 </button>
-            </div>
+            </form>
         </div>
     </div>
   )

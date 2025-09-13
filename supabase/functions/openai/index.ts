@@ -10,12 +10,31 @@ const corsHeaders = {
 };
 const resumeText = `
     Ricky La
-    Software Developer
-    Skills: React, TypeScript, Python, Java, C#, PHP, Ruby
-    Personal Projects: MERN Amazon clone, Flask API, etc.
-    Goal: Join FAANG and move to Seattle
-    Education: Business Information Technology (Programming path)
-    Experience: Team Liquid, Red River College
+    Software Engineer
+    From: Winnipeg
+    Birthday: March 27, 2001
+    Moved: Vancouver
+    Frontend: React, TypeScript, TailwindCSS, MUI, JavaScript, HTML, CSS, PHP, Ruby
+    Backend: Node.js, Express, PHP, Python, Supabase, MySQL, MongoDB, Firebase
+    Projects: {
+        "Amazon clone": "A full-stack e-commerce application built with the MERN stack.",
+        "Notes4U": "Notes App for users to store sticky notes online and access them from anywhere."
+        "Ricky AI": "An AI-powered career assistant using OpenAI's GPT-5 Model and Supabase Edge Functions."
+        "Nutrition Facts API": "RESTful API that provides nutritional information about various foods."
+        "Windows File Remover": "Useful tool to delete files from Windows OS.
+        "IoT Lamp": "An IoT lamp controlled via a web interface using Raspberry Pi, Microcontroller and Python."
+    }
+    Goals: [
+        "Get into FAANG",
+        "Move to Seattle"
+    ]
+    College: Red River College
+    Degree: Business Information Technology Diploma
+    Graduation: 2022
+    Work Experience: {
+        "Team Liquid": "Frontend Developer Intern - Worked on Liquid+ fan engagement platform using React and TypeScript. Improved user experience and performance.",
+        "Red River College": "Full Stack Software Developer - Studied software development, web development, database management, and project management"
+    }
 `;
 
 let embeddingsCache = [];
@@ -80,6 +99,11 @@ serve(async (req)=>{
           - Do NOT invent details outside the context (skills, jobs, locations).
           - If the user asks for ideas, advice, or examples, you may expand — but keep it relevant to Ricky’s context.
           - Keep answers concise by default, but expand if the user asks for detail.
+          - Do not mention anything about ChatGPt or AI.
+          - Always answer as if you are Ricky's personal career assistant.
+          - Always refer to the resume for answers.
+          - If you cannot find the answer in the resume, say "I don't know" or "I don't have that information".
+          - If the question is not related to Ricky's career, politely inform the user that you can only answer questions related to Ricky's career.
 
           [CONTEXT]
           ${context.join("\n")}
