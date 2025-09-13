@@ -70,7 +70,7 @@ const AI = ({ darkMode }: { darkMode: boolean }) => {
                                 }}
                                 options={
                                     {
-                                        delay: 100,
+                                        delay: 30,
                                     }
                                 }
                             />)}
