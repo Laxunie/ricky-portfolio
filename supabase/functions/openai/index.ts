@@ -1,13 +1,16 @@
 import { serve } from "https://deno.land/std@0.177.0/http/server.ts";
 import OpenAI from "https://deno.land/x/openai@v4.24.0/mod.ts";
+
 const openai = new OpenAI({
   apiKey: Deno.env.get('OPENAI_API_KEY')
 });
+
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
   "Access-Control-Allow-Methods": "GET, POST, OPTIONS"
 };
+
 const resumeText = `
     Ricky La
     Software Engineer
@@ -21,12 +24,11 @@ const resumeText = `
         "Notes4U": "Notes App for users to store sticky notes online and access them from anywhere."
         "Ricky AI": "An AI-powered career assistant using OpenAI's GPT-5 Model and Supabase Edge Functions."
         "Nutrition Facts API": "RESTful API that provides nutritional information about various foods."
-        "Windows File Remover": "Useful tool to delete files from Windows OS.
+        "Windows File Remover": "Useful tool to delete files from Windows OS."
         "IoT Lamp": "An IoT lamp controlled via a web interface using Raspberry Pi, Microcontroller and Python."
     }
     Goals: [
         "Get into FAANG",
-        "Move to Seattle"
     ]
     College: Red River College
     Degree: Business Information Technology Diploma

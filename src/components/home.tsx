@@ -140,7 +140,7 @@ const Home = ({darkMode}: HomeProps) => {
         >
           <img
             className="w-full h-full"
-            src={`https://leetcard.jacoblin.cool/Laxunie?theme=${darkMode ? "nord" : "light"}&font=Inter&ext=activity&border=0`}
+            src={`https://leetcard.jacoblin.cool/Laxunie?theme=${darkMode ? "nord" : "light"}&font=Inter&ext=heatmap&border=0`}
           />
         </Fade>
       </div>
